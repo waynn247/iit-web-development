@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School House Finder</title>
+    <style>
+        .main {
+            background-image: url("2596.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: "Montserrat", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%; /* Make sure it takes the full width */
+            height: 100vh; /* Make sure it takes the full viewport height */
+        }
+
+        .container {
+            width: auto;
+            height: auto;
+            /* border: 1px solid burlywood ; */
+            background: rgba(255, 255, 255, 0.507);
+            backdrop-filter: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.432);
+            box-shadow: 0px 8px 32px rgba(19, 0, 0, 0.253);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: -180px;
+            padding: 60px;
+            padding-top: 60px;
+            padding-bottom: 90px;
+        }
+
+        label {
+            /* display: block; */
+            margin-bottom: 5px;
+        }
+        #checkbox {
+            margin-top: 15px;
+
+        }
+
+        /* h2 {
+            margin-top: -2px;
+        } */
+
+        #index-no {
+            width: 200px;
+            height: 30px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.507);
+            backdrop-filter: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.329);
+            font-family: "Montserrat", sans-serif;
+            font-style: normal;
+        }
+        
+        #sibling-no {
+            display: none;
+        }
+
+        #sib-index-no {
+            width: 200px;
+            height: 30px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.507);
+            backdrop-filter: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.329);
+            font-family: "Montserrat", sans-serif;
+            font-style: normal;
+        }
+
+        button {
+            border: 1px solid rgba(0, 0, 0, 0.329);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: white;
+            color: rgb(68, 68, 68);
+            font-weight: bold;
+            width: 100px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-family: "Montserrat", sans-serif;
+            font-style: normal;
+            cursor: pointer;
+
+            
+        }
+
+        button:hover {
+            /* background-color: rgb(199, 199, 199); */
+            background: rgba(255, 255, 255, 0.507);
+            backdrop-filter: 10px;
+            transition-duration: 0.3s;
+            color: rgb(0, 0, 0);
+            border: 1px solid rgb(110, 110, 110);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            backdrop-filter: blur(5px); /* Apply blur effect */
+            z-index: 10; /* Make sure it's above everything else */
+            display: none; /* Initially hidden */
+            pointer-events: none;
+        }
+
+        .popup {
+            width: auto;
+            height: auto;
+            background: rgb(255, 255, 255);
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 8px;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 120px;
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-top: 60px;
+            padding-bottom: 32px;
+            top: 12%;
+            display: none;
+            filter: none; /* Remove blur effect from the popup */
+            z-index: 20;
+        }
+
+
+        
+
+        #house {
+            font-weight: bold;
+        }
+
+        .image {
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            margin-top: -27px;
+            padding-top: -50px;
+        }
+
+        .blur {
+        filter: blur(50px);
+        }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Yuji+Syuku&display=swap" rel="stylesheet">    
+<body>
+    <div class="main">
+        <div class="overlay"></div>
+        <div class="popup" onclick="okButton()">
+            <img src="hook-1727484_1280.png" class="image">
+            <p id="house">-</p>
+            <p>Thank You!</p>
+            <button id="ok">OK</button>
+        </div>
+    <div class="container">
+        <h2>School House Finder</h2>
+        <form>
+            <label>Enter Index No:</label><br>
+            <input type="text" name="Index" id="index-no"><br>
+            Do you have any siblings?<input type="checkbox" name="sibling" id="checkbox">
+            <div id="sibling-no">
+                <br>
+                <label>Sibling's Index No:</label><br>
+                <input type="text" name="Index" id="sib-index-no">
+            </div>
+            <br><br>
+            <div><button id="submit">Submit</button></div>
+        </form>
+    </div>
+    </div>
+    
+
+<script>
+    let checkValue = document.getElementById("checkbox")
+    checkValue.addEventListener("change", checkSibling)
+
+    function checkSibling() {
+        siblingIndex = document.getElementById("sibling-no")
+        if (checkValue.checked==true) {
+            siblingIndex.style.display = "block"
+        }
+        else {
+            siblingIndex.style.display = "none"
+        }
+    }
+
+
+
+    var popup = document.querySelector(".popup");
+    var overlay = document.querySelector(".overlay");
+    var submit = document.getElementById("submit");
+
+    submit.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+
+        popup.style.display = "block";
+        overlay.style.display = "block"; // Show the overlay
+
+        var indexNo = document.getElementById("index-no");
+        indexValue = indexNo.value;
+
+        if (indexValue.trim() === "") {
+        // Display error message if index number is empty
+        var houseParagraph = document.getElementById("house");
+        houseParagraph.textContent = "Enter valid number";
+        } else {
+            rem = indexValue%4;
+            if (rem==0) {
+                house.innerText = "Your House is Thagore"; 
+            }
+            else if (rem==1) {
+                house.innerText = "Your house is Rahula";
+            }
+            else if (rem==2) {
+                house.innerText = "Your house is Milton"; 
+            }
+            else if (rem==3) {
+                house.innerText = "Your house is Iqbal";
+            };
+        };
+    });
+
+    var ok = document.getElementById("ok");
+
+    function okButton() {
+        popup.style.display = "none";
+        overlay.style.display = "none"; // Hide the overlay
+    }
+
+</script>
+
+</body>
+</html>
